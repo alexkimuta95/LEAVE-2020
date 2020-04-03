@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="EmployeeNo_EmployeeLeavePlanHeader1">
+          <DataField>EmployeeNo_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="EmployeeName_EmployeeLeavePlanHeader1">
+          <DataField>EmployeeName_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="Branch_EmployeeLeavePlanHeader1">
+          <DataField>Branch_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="DepartmentName_EmployeeLeavePlanHeader1">
+          <DataField>DepartmentName_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="JobTitle_EmployeeLeavePlanHeader1">
+          <DataField>JobTitle_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="Balancebroughtforward_EmployeeLeavePlanHeader1">
+          <DataField>Balancebroughtforward_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="Balancebroughtforward_EmployeeLeavePlanHeader1Format">
+          <DataField>Balancebroughtforward_EmployeeLeavePlanHeader1Format</DataField>
+        </Field>
+        <Field Name="LeaveEntitlment_EmployeeLeavePlanHeader1">
+          <DataField>LeaveEntitlment_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="LeaveEntitlment_EmployeeLeavePlanHeader1Format">
+          <DataField>LeaveEntitlment_EmployeeLeavePlanHeader1Format</DataField>
+        </Field>
+        <Field Name="TotalLeaveDays_EmployeeLeavePlanHeader1">
+          <DataField>TotalLeaveDays_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="TotalLeaveDays_EmployeeLeavePlanHeader1Format">
+          <DataField>TotalLeaveDays_EmployeeLeavePlanHeader1Format</DataField>
+        </Field>
+        <Field Name="Jan">
+          <DataField>Jan</DataField>
+        </Field>
+        <Field Name="JanFormat">
+          <DataField>JanFormat</DataField>
+        </Field>
+        <Field Name="DateOfJoiningCompany_EmployeeLeavePlanHeader1">
+          <DataField>DateOfJoiningCompany_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="AddedBackDays_EmployeeLeavePlanHeader1">
+          <DataField>AddedBackDays_EmployeeLeavePlanHeader1</DataField>
+        </Field>
+        <Field Name="AddedBackDays_EmployeeLeavePlanHeader1Format">
+          <DataField>AddedBackDays_EmployeeLeavePlanHeader1Format</DataField>
+        </Field>
+        <Field Name="Feb">
+          <DataField>Feb</DataField>
+        </Field>
+        <Field Name="FebFormat">
+          <DataField>FebFormat</DataField>
+        </Field>
+        <Field Name="March">
+          <DataField>March</DataField>
+        </Field>
+        <Field Name="MarchFormat">
+          <DataField>MarchFormat</DataField>
+        </Field>
+        <Field Name="April">
+          <DataField>April</DataField>
+        </Field>
+        <Field Name="AprilFormat">
+          <DataField>AprilFormat</DataField>
+        </Field>
+        <Field Name="May">
+          <DataField>May</DataField>
+        </Field>
+        <Field Name="MayFormat">
+          <DataField>MayFormat</DataField>
+        </Field>
+        <Field Name="June">
+          <DataField>June</DataField>
+        </Field>
+        <Field Name="JuneFormat">
+          <DataField>JuneFormat</DataField>
+        </Field>
+        <Field Name="July">
+          <DataField>July</DataField>
+        </Field>
+        <Field Name="JulyFormat">
+          <DataField>JulyFormat</DataField>
+        </Field>
+        <Field Name="August">
+          <DataField>August</DataField>
+        </Field>
+        <Field Name="AugustFormat">
+          <DataField>AugustFormat</DataField>
+        </Field>
+        <Field Name="Sep">
+          <DataField>Sep</DataField>
+        </Field>
+        <Field Name="SepFormat">
+          <DataField>SepFormat</DataField>
+        </Field>
+        <Field Name="Oct">
+          <DataField>Oct</DataField>
+        </Field>
+        <Field Name="OctFormat">
+          <DataField>OctFormat</DataField>
+        </Field>
+        <Field Name="Nov">
+          <DataField>Nov</DataField>
+        </Field>
+        <Field Name="NovFormat">
+          <DataField>NovFormat</DataField>
+        </Field>
+        <Field Name="Dec">
+          <DataField>Dec</DataField>
+        </Field>
+        <Field Name="DecFormat">
+          <DataField>DecFormat</DataField>
+        </Field>
+        <Field Name="statusempl">
+          <DataField>statusempl</DataField>
+        </Field>
+        <Field Name="grade">
+          <DataField>grade</DataField>
+        </Field>
+        <Field Name="EmployeeNo_EmployeeLeavePlan1">
+          <DataField>EmployeeNo_EmployeeLeavePlan1</DataField>
+        </Field>
+        <Field Name="EmployeeName_EmployeeLeavePlan1">
+          <DataField>EmployeeName_EmployeeLeavePlan1</DataField>
+        </Field>
+        <Field Name="dateofjoin">
+          <DataField>dateofjoin</DataField>
+        </Field>
+        <Field Name="jobtitle">
+          <DataField>jobtitle</DataField>
+        </Field>
+        <Field Name="balanceBF">
+          <DataField>balanceBF</DataField>
+        </Field>
+        <Field Name="balanceBFFormat">
+          <DataField>balanceBFFormat</DataField>
+        </Field>
+        <Field Name="leaveentitlement">
+          <DataField>leaveentitlement</DataField>
+        </Field>
+        <Field Name="leaveentitlementFormat">
+          <DataField>leaveentitlementFormat</DataField>
+        </Field>
+        <Field Name="totalleavedays">
+          <DataField>totalleavedays</DataField>
+        </Field>
+        <Field Name="totalleavedaysFormat">
+          <DataField>totalleavedaysFormat</DataField>
+        </Field>
+        <Field Name="ApplicationNo_EmployeeLeavePlan1">
+          <DataField>ApplicationNo_EmployeeLeavePlan1</DataField>
+        </Field>
+        <Field Name="branch">
+          <DataField>branch</DataField>
+        </Field>
+        <Field Name="Department">
+          <DataField>Department</DataField>
+        </Field>
+        <Field Name="CompanyInformation_Name">
+          <DataField>CompanyInformation_Name</DataField>
+        </Field>
+        <Field Name="CompanyInformation_Address">
+          <DataField>CompanyInformation_Address</DataField>
+        </Field>
+        <Field Name="CompanyInformation_City">
+          <DataField>CompanyInformation_City</DataField>
+        </Field>
+        <Field Name="CompanyInformation_PostCode">
+          <DataField>CompanyInformation_PostCode</DataField>
+        </Field>
+        <Field Name="serialno">
+          <DataField>serialno</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

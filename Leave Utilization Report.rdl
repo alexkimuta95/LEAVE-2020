@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_Employee">
+          <DataField>No_Employee</DataField>
+        </Field>
+        <Field Name="Name_Employee">
+          <DataField>Name_Employee</DataField>
+        </Field>
+        <Field Name="BranchName_Employee">
+          <DataField>BranchName_Employee</DataField>
+        </Field>
+        <Field Name="DepartmentName_Employee">
+          <DataField>DepartmentName_Employee</DataField>
+        </Field>
+        <Field Name="JobTitle_Employee">
+          <DataField>JobTitle_Employee</DataField>
+        </Field>
+        <Field Name="EmployeeGrade_Employee">
+          <DataField>EmployeeGrade_Employee</DataField>
+        </Field>
+        <Field Name="EmploymentDate_Employee">
+          <DataField>EmploymentDate_Employee</DataField>
+        </Field>
+        <Field Name="Status_Employee">
+          <DataField>Status_Employee</DataField>
+        </Field>
+        <Field Name="Unit">
+          <DataField>Unit</DataField>
+        </Field>
+        <Field Name="daystaken">
+          <DataField>daystaken</DataField>
+        </Field>
+        <Field Name="daystakenFormat">
+          <DataField>daystakenFormat</DataField>
+        </Field>
+        <Field Name="daysinplan">
+          <DataField>daysinplan</DataField>
+        </Field>
+        <Field Name="daysinplanFormat">
+          <DataField>daysinplanFormat</DataField>
+        </Field>
+        <Field Name="variance">
+          <DataField>variance</DataField>
+        </Field>
+        <Field Name="varianceFormat">
+          <DataField>varianceFormat</DataField>
+        </Field>
+        <Field Name="comment2">
+          <DataField>comment2</DataField>
+        </Field>
+        <Field Name="CompanyInformation_Name">
+          <DataField>CompanyInformation_Name</DataField>
+        </Field>
+        <Field Name="CompanyInformation_Address">
+          <DataField>CompanyInformation_Address</DataField>
+        </Field>
+        <Field Name="CompanyInformation_City">
+          <DataField>CompanyInformation_City</DataField>
+        </Field>
+        <Field Name="CompanyInformation_PostCode">
+          <DataField>CompanyInformation_PostCode</DataField>
+        </Field>
+        <Field Name="date1">
+          <DataField>date1</DataField>
+        </Field>
+        <Field Name="serialno">
+          <DataField>serialno</DataField>
+        </Field>
+        <Field Name="header">
+          <DataField>header</DataField>
+        </Field>
+        <Field Name="accrueddays">
+          <DataField>accrueddays</DataField>
+        </Field>
+        <Field Name="accrueddaysFormat">
+          <DataField>accrueddaysFormat</DataField>
+        </Field>
+        <Field Name="daysBF">
+          <DataField>daysBF</DataField>
+        </Field>
+        <Field Name="daysBFFormat">
+          <DataField>daysBFFormat</DataField>
+        </Field>
+        <Field Name="balance">
+          <DataField>balance</DataField>
+        </Field>
+        <Field Name="balanceFormat">
+          <DataField>balanceFormat</DataField>
+        </Field>
+        <Field Name="addeddays">
+          <DataField>addeddays</DataField>
+        </Field>
+        <Field Name="addeddaysFormat">
+          <DataField>addeddaysFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>
