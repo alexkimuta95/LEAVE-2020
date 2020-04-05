@@ -9,6 +9,7 @@ tableextension 50000 "GLSetupExt" extends "General Ledger Setup"
             TableRelation = "Base Calendar";
 
         }
+
     }
 
     var

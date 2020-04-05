@@ -654,16 +654,16 @@ page 50007 "Aleki Role Center"
                         //     RunObject = report "Leave Utilization Report";
                         //     ApplicationArea = all;
                         // }
-                        action("Leave Balance Quaterly Report")
-                        {
-                            RunObject = report "Leave Balance";
-                            ApplicationArea = all;
-                        }
-                        action("Leave Balance")
-                        {
-                            RunObject = report "Leave Balance";
-                            ApplicationArea = all;
-                        }
+                        // action("Leave Balance Quaterly Report")
+                        // {
+                        //     RunObject = report "Leave Balance";
+                        //     ApplicationArea = all;
+                        // }
+                        // action("Leave Balance")
+                        // {
+                        //     RunObject = report "Leave Balance";
+                        //     ApplicationArea = all;
+                        // }
                         // action("Staff on Leave")
                         // {
                         //     RunObject = report StaffOnLeave;
