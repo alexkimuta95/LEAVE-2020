@@ -115,13 +115,13 @@ table 51000 "Leave Application"
         field(12; Status; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = New,Review,Approved,Rejected,Canceled;
+            OptionMembers = New,"Approval Pending",Approved,Rejected,Canceled;
 
             trigger OnValidate()
             begin
                 GeneralOptions.GET;
                 GeneralOptions.TESTFIELD(GeneralOptions."Base Calendar");
-                IF (Status = Status::Review) AND (xRec.Status <> Status::Review) THEN BEGIN
+                IF (Status = Status::"Approval Pending") AND (xRec.Status <> Status::"Approval Pending") THEN BEGIN
                     ;
                     "Approval Date" := TODAY;
                     EmpLeave.RESET;
@@ -132,7 +132,7 @@ table 51000 "Leave Application"
                     EmpLeave.Balance := EmpLeave.Balance - "Approved Days";
                     EmpLeave.MODIFY;
                 END ELSE
-                    IF (Status <> Status::Review) AND (xRec.Status = Status::Review) THEN BEGIN
+                    IF (Status <> Status::"Approval Pending") AND (xRec.Status = Status::"Approval Pending") THEN BEGIN
                         "Approval Date" := TODAY;
                         EmpLeave.RESET;
                         EmpLeave.SETRANGE(EmpLeave."Employee No", "Employee No.");
@@ -353,7 +353,7 @@ table 51000 "Leave Application"
 
         IF leaveApps.FINDSET THEN BEGIN
             REPEAT
-                IF leaveApps.Status = leaveApps.Status::Review THEN
+                IF leaveApps.Status = leaveApps.Status::"Approval Pending" THEN
                     EXIT(TRUE)
 
                 ELSE

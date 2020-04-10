@@ -602,7 +602,7 @@ page 50007 "Aleki Role Center"
                         }
                         action("Approved Leave Application")
                         {
-                            RunObject = page "Approved Leave Applications";
+                            RunObject = page "Approved Leave Application";
                             ApplicationArea = all;
                         }
                         action("Leave Recalls List")
@@ -610,11 +610,7 @@ page 50007 "Aleki Role Center"
                             RunObject = page "Leave Recalls List";
                             ApplicationArea = all;
                         }
-                        // action("Leave Application List")
-                        // {
-                        //     RunObject = page "Leave Application List HR";
-                        //     ApplicationArea = all;
-                        // }
+
                         action("Employee Leave Setup")
                         {
                             RunObject = page "Employee Leave List";
@@ -624,11 +620,7 @@ page 50007 "Aleki Role Center"
                     }
                     group("HR Tasks")
                     {
-                        action("Leave Journal")
-                        {
-                            RunObject = page "Leave Journal";
-                            ApplicationArea = all;
-                        }
+
                         action("Leave Ledger Entry")
                         {
                             RunObject = page "Leave Ledger Entry";
@@ -639,36 +631,8 @@ page 50007 "Aleki Role Center"
                     }
                     group("HR Reports")
                     {
-                        // action("Employee Leave Report")
-                        // {
-                        //     RunObject = report "Employee Leave Report";
-                        //     ApplicationArea = all;
-                        // }
-                        // action("Leave Calendar Plan")
-                        // {
-                        //     RunObject = report "Leave Calendar Plan";
-                        //     ApplicationArea = all;
-                        // }
-                        // action("Leave Utilization Report")
-                        // {
-                        //     RunObject = report "Leave Utilization Report";
-                        //     ApplicationArea = all;
-                        // }
-                        // action("Leave Balance Quaterly Report")
-                        // {
-                        //     RunObject = report "Leave Balance";
-                        //     ApplicationArea = all;
-                        // }
-                        // action("Leave Balance")
-                        // {
-                        //     RunObject = report "Leave Balance";
-                        //     ApplicationArea = all;
-                        // }
-                        // action("Staff on Leave")
-                        // {
-                        //     RunObject = report StaffOnLeave;
-                        //     ApplicationArea = all;
-                        // }
+
+
                         action("Leave Recall Report")
                         {
                             RunObject = report "Leave Recall List";
@@ -679,20 +643,11 @@ page 50007 "Aleki Role Center"
                     {
                         action("Rejected Leave Applications")
                         {
-                            RunObject = page "Rejected Leave Application";
+                            RunObject = page "Rejected Leave Applications";
                             ApplicationArea = all;
                         }
-                        action("Posted Leave Entries")
-                        {
-                            RunObject = page "Posted Leave";
-                            ApplicationArea = all;
 
-                        }
-                        // action("Posted Leave Application")
-                        // {
-                        //     RunObject = page "Posted Leave Applications";
-                        //     ApplicationArea = all;
-                        // }
+
                     }
                     group(Administration)
                     {
@@ -707,26 +662,14 @@ page 50007 "Aleki Role Center"
                             ApplicationArea = all;
 
                         }
-                        // action("HR Leave Reason")
-                        // {
-                        //     RunObject = page "HR Leave Reason";
-                        //     ApplicationArea = all;
-                        // }
+
                         action("Base Calendar List")
                         {
                             RunObject = page "Base Calendar List";
                             ApplicationArea = all;
                         }
-                        // action("Employee Leave Approvals")
-                        // {
-                        //     RunObject = page "Employee Leave Approvals";
-                        //     ApplicationArea = all;
-                        // }
-                        action("Leave Allocation")
-                        {
-                            RunObject = page "Leave allocation list";
-                            ApplicationArea = all;
-                        }
+
+
                         action("Payroll Posting Group")
                         {
                             RunObject = page "Payroll Posting Group";
@@ -738,6 +681,71 @@ page 50007 "Aleki Role Center"
                             ApplicationArea = all;
                         }
                     }
+                }
+                group("Cash Management")
+                {
+                    group("Cash Lists")
+                    {
+                        action("Bank Account List")
+                        {
+                            RunObject = page "Bank Account List";
+                            ApplicationArea = all;
+                        }
+                        action("Petty Cash Replenishment List")
+                        {
+                            RunObject = page "Petty Cash Replenishment List";
+                            ApplicationArea = all;
+                        }
+                        action("Petty Cash List")
+                        {
+                            RunObject = page "Petty Cash List";
+                            ApplicationArea = all;
+                        }
+                        action("Posted Replenishment List")
+                        {
+                            RunObject = page "Posted Replenishment List";
+                            ApplicationArea = all;
+                        }
+                    }
+                    group("Cash Tasks")
+                    {
+                        action("Cash Approval Entries")
+                        {
+                            RunObject = page "Approval Entries";
+                            ApplicationArea = all;
+                        }
+                    }
+                    group("Reports and Analysis")
+                    {
+                        action("Petty Cash Report")
+                        {
+                            RunObject = report "Petty Cash Report";
+                            ApplicationArea = all;
+                        }
+
+                    }
+                    group(Documents)
+                    {
+                        action("Petty Cash Header")
+                        {
+                            RunObject = page "Petty Cash Header";
+                            ApplicationArea = all;
+                        }
+                        action("Petty Cash Replenishment")
+                        {
+                            RunObject = page "Petty Cash Replenishment";
+                            ApplicationArea = all;
+                        }
+                    }
+                    group("Cash Archive")
+                    {
+                        action("Posted Petty Cash List")
+                        {
+                            RunObject = page "Posted Petty Cash List";
+                            ApplicationArea = all;
+                        }
+                    }
+
                 }
 
             }

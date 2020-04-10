@@ -29,7 +29,7 @@ codeunit 51215 "Workflow Response Handling Ext"
     //onrelseas
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnReleaseDocument', '', true, true)]
-    local procedure OnReleaseDocument(RecRef: RecordRef; Handled: Boolean)
+    local procedure OnReleaseDocument(RecRef: RecordRef; var Handled: Boolean)
     var
         LeaveApp: Record "Leave Application";
     begin
@@ -53,15 +53,16 @@ codeunit 51215 "Workflow Response Handling Ext"
         LeaveApp: Record "Leave Application";
 
     begin
-
+        RecRef.GetTable(Variant);
         case RecRef.Number of
             DATABASE::"Leave Application":
                 begin
                     // isHandled := true;
                     RecRef.SetTable(LeaveApp);
-                    // LeaveApp.Validate(Status, LeaveApp.Status::"Approval Pending");
+                    LeaveApp.Validate(Status, LeaveApp.Status::"Approval Pending");
                     LeaveApp.Modify(true);
                     isHandled := true;
+
 
                 end;
 

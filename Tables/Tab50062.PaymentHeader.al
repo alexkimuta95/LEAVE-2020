@@ -209,7 +209,23 @@ table 50062 "Payment Header"
     }
 
     var
-        myInt: Integer;
+        CashMgtSetup: Record "Cash Management Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        BankAccount: Record "Bank Account";
+        Vendor: Record Vendor;
+        UsetSetup: Record "User Setup";
+        PaymentLine: Record "Payment Line";
+        test: Code[20];
+        CurrencyDate: Date;
+        CurrExchRate: Record "Currency Exchange Rate";
+        HideValidationDialog: Boolean;
+        Confirmed: Boolean;
+        Lines: Record "Payment Line";
+        DimMgt: Codeunit DimensionManagement;
+        Options: Record "Purchases & Payables Setup";
+        PVHeader: Record "Payment Header";
+        Text022: Label 'Do you want to update the exchange rate?';
+        DeleteError: Label 'Pay Voucher %1 has been submitted for approval thus cannot be deleted.  Cancel approval request and then retry pay voucher deletion';
 
     trigger OnInsert()
     begin
@@ -229,6 +245,74 @@ table 50062 "Payment Header"
     trigger OnRename()
     begin
 
+    end;
+
+    procedure AssistEdit(OldPayHeader: Record "Payment Header"): Boolean
+    begin
+    end;
+
+    procedure PaymentLinesExist(Payheader: Record "Payment Header"): Boolean
+    var
+        Payheader2: Record "Payment Header";
+    begin
+        WITH Payheader2 DO BEGIN
+            SETRANGE("No.", Payheader."No.");
+
+
+
+            IF FINDFIRST THEN BEGIN
+                PaymentLine.RESET;
+                PaymentLine.SETRANGE("Document No", "No.");
+                PaymentLine.SETRANGE(PaymentLine."Invoice To Pay", TRUE);
+                IF FINDFIRST THEN
+                    EXIT(TRUE)
+                ELSE
+                    EXIT(FALSE); //This line has a bug for some reason!
+            END;
+        END;
+    end;
+
+    local procedure UpdateCurrency()
+    begin
+        IF "Currency Code" <> '' THEN BEGIN
+            IF "Posting Date" <> 0D THEN
+                CurrencyDate := "Posting Date"
+            ELSE
+                CurrencyDate := WORKDATE;
+
+            "Currency Factor" := CurrExchRate.ExchangeRate(CurrencyDate, "Currency Code");
+        END ELSE
+            "Currency Factor" := 0;
+    end;
+
+    LOCAL procedure ConfirmUpdateCurrencyFactor()
+    begin
+        IF HideValidationDialog THEN
+            Confirmed := TRUE
+        ELSE
+            Confirmed := CONFIRM(Text022, FALSE);
+        IF Confirmed THEN
+            VALIDATE("Currency Factor")
+        ELSE
+            "Currency Factor" := xRec."Currency Factor";
+    end;
+
+    procedure SelectAll(VAR Header: Record "Payment Header")
+    begin
+        WITH Lines DO BEGIN
+            RESET;
+            SETFILTER("Document No", '%1', Header."No.");
+            IF Lines.FINDSET THEN Lines.MODIFYALL("Invoice To Pay", TRUE);
+        END;
+    end;
+
+    procedure UnSelectAll(VAR Header: Record "Payment Header")
+    begin
+        WITH Lines DO BEGIN
+            RESET;
+            SETFILTER("Document No", '%1', Header."No.");
+            IF Lines.FINDSET THEN Lines.MODIFYALL("Invoice To Pay", FALSE);
+        END;
     end;
 
 }

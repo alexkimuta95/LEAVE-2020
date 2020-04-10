@@ -1,25 +1,31 @@
-table 51105 "HR Leave Reasons"
+table 50066 "Expense Codes"
 {
     DataClassification = ToBeClassified;
 
     fields
     {
-        field(1; "No"; Integer)
-        {
-            DataClassification = ToBeClassified;
-            AutoIncrement = true;
-
-        }
-        field(2; "Reason for Leave"; Text[100])
+        field(1; Code; code[20])
         {
             DataClassification = ToBeClassified;
 
         }
+        field(2; "G/L Account"; Code[20])
+        {
+            Caption = 'G/L Account';
+            DataClassification = ToBeClassified;
+            TableRelation = "G/L Account"."No." where("Income/Balance" = filter("Income Statement"), "Direct Posting" = const(true));
+        }
+        field(3; Description; Text[250])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
     }
 
     keys
     {
-        key(PK; "No", "Reason for Leave")
+        key(PK; Code)
         {
             Clustered = true;
         }

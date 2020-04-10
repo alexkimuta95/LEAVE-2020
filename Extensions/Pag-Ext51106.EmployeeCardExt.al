@@ -12,6 +12,7 @@ pageextension 51106 "EmployeeCardExt" extends "Employee Card"
             field("NHIF No"; "NHIF No") { ApplicationArea = all; }
             field("HR Leave Calender"; "HR Leave Calender") { ApplicationArea = all; }
             field("Payroll Posting Group"; "Payroll Posting Group") { ApplicationArea = all; }
+            field("User ID"; "User ID") { ApplicationArea = all; }
 
         }
     }

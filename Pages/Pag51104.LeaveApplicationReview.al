@@ -47,7 +47,7 @@ page 51104 "Leave Application Review"
         {
             part("Employee Leave Factbox"; "Employee Leave Factbox")
             {
-                SubPageLink = "Employee No" = field("Employee No.");
+                SubPageLink = "Employee No" = field("Employee No."), "Leave Code" = field("Leave Code");
                 ApplicationArea = all;
             }
             systempart(Links; Links) { ApplicationArea = all; }

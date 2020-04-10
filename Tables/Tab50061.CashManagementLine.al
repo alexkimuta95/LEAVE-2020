@@ -7,6 +7,8 @@ table 50061 "Cash Management Line"
         field(1; No; code[20])
         {
             DataClassification = ToBeClassified;
+            NotBlank = true;
+            TableRelation = "Cash Management Header".No;
 
         }
         field(2; "Account No."; Code[20])
@@ -20,7 +22,7 @@ table 50061 "Cash Management Line"
             if ("Account Type" = filter("Bank Account"), "Document Type" = filter("Petty Cash")) "Bank Account"."No." where("Petty Cash" = filter(true));
             trigger OnValidate()
             begin
-                // CopyHeaderDimensions;
+                CopyHeaderDimensions;
                 CASE "Account Type" OF
                     "Account Type"::"G/L Account":
                         BEGIN
@@ -57,9 +59,9 @@ table 50061 "Cash Management Line"
             DataClassification = ToBeClassified;
             trigger OnValidate()
             begin
-                // UpdateCurrencyFactor;
-                // UpdateUnitCost;
-                // UpdateAmounts;
+                UpdateCurrencyFactor;
+                UpdateUnitCost;
+                UpdateAmounts;
             end;
 
         }
@@ -71,6 +73,7 @@ table 50061 "Cash Management Line"
         field(6; "Advance Holder"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Customer."No.";
 
         }
         field(7; "Actual Amount Spent"; Decimal)
@@ -81,25 +84,25 @@ table 50061 "Cash Management Line"
                 IF AdvancePettyCashIOU.GET(No) THEN BEGIN
                     IF AdvancePettyCashIOU.Amount <> 0 THEN BEGIN
                         IF AdvancePettyCashIOU.Amount > "Actual Amount Spent" THEN BEGIN
-                            //      "Surrender Amount":=AdvancePettyCashIOU.Amount-"Actual Amount Spent";
-                            //    "Reimbursement Amount":=0;
+                            "Surrender Amount" := AdvancePettyCashIOU.Amount - "Actual Amount Spent";
+                            "Reimbursement Amount" := 0;
                         END ELSE
                             IF AdvancePettyCashIOU.Amount < "Actual Amount Spent" THEN BEGIN
-                                //  "Reimbursement Amount":="Actual Amount Spent"-AdvancePettyCashIOU.Amount;
-                                //"Surrender Amount":=0;
+                                "Reimbursement Amount" := "Actual Amount Spent" - AdvancePettyCashIOU.Amount;
+                                "Surrender Amount" := 0;
                             END;
                     END;
                 END;
-                // UpdateCurrencyFactor;
-                // UpdateUnitCost;
-                // UpdateAmounts;
+                UpdateCurrencyFactor;
+                UpdateUnitCost;
+                UpdateAmounts;
             end;
 
         }
         field(8; "Line No."; Integer)
         {
             DataClassification = ToBeClassified;
-
+            AutoIncrement = true;
         }
         field(9; "Account Type"; Option)
         {
@@ -108,7 +111,9 @@ table 50061 "Cash Management Line"
         }
         field(10; Allocated; boolean)
         {
-            DataClassification = ToBeClassified;
+            // DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = lookup ("Cash Management Header".Allocated where(No = field(No)));
 
         }
         field(11; "Reimbursement Amount"; decimal)
@@ -116,23 +121,30 @@ table 50061 "Cash Management Line"
             DataClassification = ToBeClassified;
             trigger OnValidate()
             begin
-                // UpdateSurrenderAmounts;
+                UpdateSurrenderAmounts;
             end;
 
         }
         field(12; "VAT Prod. Posting Group"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "VAT Product Posting Group";
 
         }
         field(13; "Customer Posting Group"; Code[20])
         {
             DataClassification = ToBeClassified;
+            Editable = true;
+            TableRelation = if ("Account Type" = const(Customer)) "Customer Posting Group" else
+            if ("Account Type" = const(Vendor)) "Vendor Posting Group" else
+            if ("Account Type" = const("Fixed Asset")) "FA Posting Group";
 
         }
         field(14; "Source Code"; Code[20])
         {
             DataClassification = ToBeClassified;
+            Editable = false;
+            TableRelation = "Source Code";
 
         }
         field(15; "Document Type"; Option)
@@ -159,8 +171,8 @@ table 50061 "Cash Management Line"
         }
         field(19; "Accounted for"; boolean)
         {
-            DataClassification = ToBeClassified;
-
+            FieldClass = FlowField;
+            CalcFormula = lookup ("Cash Management Header"."Accounted for" where(No = field(No)));
         }
         field(20; "Account for Doc No."; Code[20])
         {
@@ -202,7 +214,7 @@ table 50061 "Cash Management Line"
                     END;
                 END;
 
-                // UpdateSurrenderAmounts;
+                UpdateSurrenderAmounts;
                 MODIFY;
             end;
 
@@ -210,6 +222,7 @@ table 50061 "Cash Management Line"
         field(25; "Bank/Petty Cash"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Bank Account";
 
         }
         field(26; "Vote Book"; Code[20])
@@ -220,6 +233,7 @@ table 50061 "Cash Management Line"
         field(27; "Budget Balance"; Decimal)
         {
             DataClassification = ToBeClassified;
+            Editable = false;
 
         }
         field(28; Date; Date)
@@ -230,9 +244,10 @@ table 50061 "Cash Management Line"
         field(29; "Shortcut Dimension 1 Code"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(1));
             trigger OnValidate()
             begin
-                // ValidateShortcutDimCode(1, "Shortcut Dimension 1 Code");
+                ValidateShortcutDimCode(1, "Shortcut Dimension 1 Code");
             end;
 
         }
@@ -244,9 +259,10 @@ table 50061 "Cash Management Line"
         field(31; "Shortcut Dimension 2 Code"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(2));
             trigger OnValidate()
             begin
-                // ValidateShortcutDimCode(2, "Shortcut Dimension 2 Code");
+                ValidateShortcutDimCode(2, "Shortcut Dimension 2 Code");
 
             end;
 
@@ -264,11 +280,13 @@ table 50061 "Cash Management Line"
         field(34; "Journal Template Name"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Gen. Journal Template";
 
         }
         field(35; "Journal Batch Name"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Gen. Journal Batch".Name where("Journal Template Name" = field("Journal Template Name"));
 
         }
         field(36; "Gen. Posting Type"; Option)
@@ -291,6 +309,7 @@ table 50061 "Cash Management Line"
         field(37; "Gen. Bus. Posting Group"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Gen. Business Posting Group";
             trigger OnValidate()
             begin
                 IF "Account Type" IN ["Account Type"::Customer, "Account Type"::Vendor, "Account Type"::"Bank Account"] THEN
@@ -304,6 +323,7 @@ table 50061 "Cash Management Line"
         field(38; "Gen. Prod. Posting Group"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Gen. Product Posting Group";
             trigger OnValidate()
             begin
                 IF "Account Type" IN ["Account Type"::Customer, "Account Type"::Vendor, "Account Type"::"Bank Account"] THEN
@@ -318,6 +338,7 @@ table 50061 "Cash Management Line"
         field(39; "VAT Bus. Posting Group"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "VAT Business Posting Group";
             trigger OnValidate()
             begin
                 IF "Account Type" IN ["Account Type"::Customer, "Account Type"::Vendor, "Account Type"::"Bank Account"] THEN
@@ -330,6 +351,8 @@ table 50061 "Cash Management Line"
         field(40; "Currency Code"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Currency.Code;
+            Editable = true;
             trigger OnValidate()
             begin
                 IF CurrFieldNo <> FIELDNO("Currency Code") THEN
@@ -353,11 +376,15 @@ table 50061 "Cash Management Line"
         field(41; "Currency Factor"; Decimal)
         {
             DataClassification = ToBeClassified;
+            Editable = false;
+            MinValue = 0;
 
         }
         field(42; "Dimension Set ID"; integer)
         {
             DataClassification = ToBeClassified;
+            Editable = false;
+            TableRelation = "Dimension Set Entry";
 
         }
         field(43; "External Doc. No."; Code[20])
@@ -388,12 +415,13 @@ table 50061 "Cash Management Line"
         field(45; Settled; boolean)
         {
             DataClassification = ToBeClassified;
+            Editable = false;
 
         }
         field(46; "Open Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
-
+            Editable = false;
         }
         field(47; "Total Surrendered Amount"; Decimal)
         {
@@ -409,7 +437,7 @@ table 50061 "Cash Management Line"
                     MESSAGE(Text0001);
                 END;
 
-                // UpdateSurrenderAmounts;
+                UpdateSurrenderAmounts;
                 MODIFY;
             end;
 
@@ -437,7 +465,7 @@ table 50061 "Cash Management Line"
                     MESSAGE(Text0001);
                 END;
 
-                // UpdateSurrenderAmounts;
+                UpdateSurrenderAmounts;
                 MODIFY;
             end;
 
@@ -449,7 +477,7 @@ table 50061 "Cash Management Line"
 
             trigger OnValidate()
             begin
-                // ValidateShortcutDimCode(3,"Shortcut Dimension 3 Code");
+                ValidateShortcutDimCode(3, "Shortcut Dimension 3 Code");
             end;
 
         }
@@ -459,7 +487,7 @@ table 50061 "Cash Management Line"
             TableRelation = "Dimension Value".Code where("Global Dimension No." = const(4));
             trigger OnValidate()
             begin
-                // ValidateShortcutDimCode(4,"Shortcut Dimension 4 Code");
+                ValidateShortcutDimCode(4, "Shortcut Dimension 4 Code");
             end;
 
         }
@@ -469,7 +497,7 @@ table 50061 "Cash Management Line"
             TableRelation = "Dimension Value".Code where("Global Dimension No." = const(5));
             trigger OnValidate()
             begin
-                // ValidateShortcutDimCode(5,"Shortcut Dimension 5 Code");
+                ValidateShortcutDimCode(5, "Shortcut Dimension 5 Code");
             end;
 
         }
@@ -479,7 +507,7 @@ table 50061 "Cash Management Line"
             TableRelation = "Dimension Value".Code where("Global Dimension No." = const(6));
             trigger OnValidate()
             begin
-                // ValidateShortcutDimCode(6,"Shortcut Dimension 6 Code");
+                ValidateShortcutDimCode(6, "Shortcut Dimension 6 Code");
             end;
 
         }
@@ -489,7 +517,7 @@ table 50061 "Cash Management Line"
             TableRelation = "Dimension Value".Code where("Global Dimension No." = const(7));
             trigger OnValidate()
             begin
-                // ValidateShortcutDimCode(7,"Shortcut Dimension 7 Code");
+                ValidateShortcutDimCode(7, "Shortcut Dimension 7 Code");
             end;
 
         }
@@ -499,7 +527,7 @@ table 50061 "Cash Management Line"
             TableRelation = "Dimension Value".Code where("Global Dimension No." = const(8));
             trigger OnValidate()
             begin
-                // ValidateShortcutDimCode(8,"Shortcut Dimension 8 Code");
+                ValidateShortcutDimCode(8, "Shortcut Dimension 8 Code");
             end;
 
         }
@@ -532,6 +560,7 @@ table 50061 "Cash Management Line"
         field(50015; "Employee No"; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Employee;
             trigger OnValidate()
             begin
                 EmployeeRec.RESET;
@@ -609,7 +638,7 @@ table 50061 "Cash Management Line"
 
     trigger OnInsert()
     begin
-        // CopyHeaderDimensions();
+        CopyHeaderDimensions();
     end;
 
     trigger OnModify()

@@ -23,7 +23,7 @@ page 51109 "Employee Leave Card"
                 field(Names; Names) { ApplicationArea = all; }
                 field("Verified by Manager"; "Verified by Manager") { ApplicationArea = all; }
                 field("Date of Verification"; "Verification Date") { ApplicationArea = all; Editable = false; }
-                field(Status; Status) { ApplicationArea = all; }
+                field(Status; Status) { ApplicationArea = all; Editable = false; }
                 field(Taken; Taken) { ApplicationArea = all; }
 
             }
@@ -33,8 +33,9 @@ page 51109 "Employee Leave Card"
                 field("Application No"; "Application No") { ApplicationArea = all; }
 
                 field("Leave Code"; "Leave Code") { ApplicationArea = all; }
-                field("Days Applied"; "Days Applied") { ApplicationArea = all; }
                 field("Start Date"; "Start Date") { ApplicationArea = all; }
+
+                field("Days Applied"; "Days Applied") { ApplicationArea = all; }
 
                 field("End Date"; "End Date") { ApplicationArea = all; }
                 field("Resumption Date"; "Resumption Date") { ApplicationArea = all; }
@@ -161,7 +162,7 @@ page 51109 "Employee Leave Card"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         Employees.RESET;
-        // Employees.SETRANGE(Employees."User ID", USERID);
+        Employees.SETRANGE(Employees."User ID", USERID);
         IF Employees.FINDFIRST THEN BEGIN
             Rec.VALIDATE(Rec."Employee No.", Employees."No.");
             GetApplicationNo;
@@ -173,7 +174,7 @@ page 51109 "Employee Leave Card"
 
     trigger OnAfterGetRecord()
     begin
-        // IF "User ID" = USERID THEN ISOWNER := TRUE;
+        IF "User ID" = USERID THEN ISOWNER := TRUE;
         GetNames();
     end;
 

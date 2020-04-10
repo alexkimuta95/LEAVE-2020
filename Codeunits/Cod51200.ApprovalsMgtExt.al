@@ -47,9 +47,22 @@ codeunit 51200 "Approvals Mgt. Ext"
 
     //set status to aproval pending
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnSetStatusToPendingApproval', '', true, true)]
-    local procedure OnSetStatusToPendingApproval()
+    local procedure OnSetStatusToPendingApproval(var Variant: Variant)
+    var
+        LeaveApp: Record "Leave Application";
+        RecRef: RecordRef;
+        IsHandled: Boolean;
     begin
-
+        RecRef.GetTable(Variant);
+        case RecRef.Number of
+            DATABASE::"Leave Application":
+                begin
+                    RecRef.SetTable(LeaveApp);
+                    LeaveApp.Validate(Status, LeaveApp.Status::"Approval Pending");
+                    LeaveApp.Modify(true);
+                    Variant := LeaveApp;
+                end;
+        end;
     end;
 
     var
